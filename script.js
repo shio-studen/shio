@@ -8,17 +8,21 @@ const categories = [
 ];
 
 const nigiriItems = [
-  { id: 'tuna', name: 'まぐろ', description: '旨みたっぷりの赤身', price: 121, image: '写真/マグロjpg.jpg' },
+  { id: 'tuna', name: 'まぐろ', description: '旨みたっぷりの赤身マグロ', price: 121, image: '写真/マグロjpg.jpg' },
   { id: 'salmon', name: 'サーモン', description: 'とろける脂が自慢のサーモン', price: 121, image: '写真/サーモン.jpg' },
-  { id: 'ika', name: 'いか', description: 'やわらかな甘みのいか', price: 121, image: '写真/いか.jpg' },
-  { id: 'ebi', name: 'えび', description: 'プリッと食感のえび', price: 121, image: '写真/えび.jpg' },
+  { id: 'ika', name: 'いか', description: 'やわらかな甘みのイカ', price: 121, image: '写真/いか.jpg' },
+  { id: 'ebi', name: 'えび', description: 'プリッと食感のエビ', price: 121, image: '写真/えび.jpg' },
   { id: 'tamago', name: 'たまご', description: 'ほんのり甘いふわふわたまご', price: 121, image: '写真/たまご.jpg' },
-  { id: 'madai', name: 'まだい', description: '上品な旨みの真鯛', price: 121, image: '写真/まだい.jpg' },
-  { id: 'tataki', name: 'たたき', description: '香ばしく炙ったたたき', price: 121, image: '写真/たたき.jpg' },
-  { id: 'unagi', name: 'うなぎ', description: '甘辛だれが香るうなぎ', price: 121, image: '写真/うなぎ.jpg' },
-  { id: 'akaebi', name: '赤えび', description: '甘みが濃い赤えび', price: 121, image: '写真/赤えび.jpg' },
+  { id: 'madai', name: 'まだい', description: '上品な旨みの活〆まだい', price: 121, image: '写真/まだい.jpg' },
+  { id: 'tataki', name: 'たたき', description: '滑らかな舌触りのまぐろのたたき軍艦', price: 121, image: '写真/たたき.jpg' },
+  { id: 'unagi', name: 'うなぎ', description: '甘辛だれが香る炙りうなぎ', price: 121, image: '写真/うなぎ.jpg' },
+  { id: 'akaebi', name: '赤えび', description: '甘みが濃い天然赤えび', price: 121, image: '写真/赤えび.jpg' },
   { id: 'hotate', name: 'ほたて', description: '甘く濃厚なほたて', price: 121, image: '写真/ほたて.jpg' },
   { id: 'ikura', name: 'いくら', description: 'ぷちぷち食感のいくら', price: 121, image: '写真/いくら.jpg' },
+];
+
+const dessertItems = [
+  { id: 'millefeuille', name: 'ミルフィーユ', description: 'ふわふわな生地とクリームの贅沢デザート', price: 121, image: '写真/ミルフィーユ.jpg' },
 ];
 
 const state = {
@@ -74,28 +78,27 @@ function renderCategories() {
 
     if (state.activeCategory === category.id) {
       button.classList.add('active');
-      button.style.background = category.activeColor || category.color;
-      button.style.color = '#1f2937';
-      if (category.id === 'nigiri') {
-        button.style.background = '#1e3a8a';
-        button.style.border = '3px solid #1e3a8a';
-        button.style.color = '#ffffff';
-      }
+      button.style.background = '#1e3a8a';
+      button.style.border = '3px solid #1e3a8a';
+      button.style.color = '#ffffff';
     }
 
-    if (category.id === 'recommended' || category.id === 'nigiri') {
+    if (category.id === 'recommended' || category.id === 'nigiri' || category.id === 'dessert') {
       button.classList.add('large-text');
     }
 
     if (category.id === 'nigiri') {
       button.classList.add('nigiri');
-      button.addEventListener('click', () => {
-        state.activeCategory = 'nigiri';
-        state.page = 0;
-        renderCategories();
-        renderMenu();
-      });
-    } else {
+    }
+
+    button.addEventListener('click', () => {
+      state.activeCategory = category.id;
+      state.page = 0;
+      renderCategories();
+      renderMenu();
+    });
+
+    if (category.id !== 'nigiri' && category.id !== 'dessert' && state.activeCategory !== category.id) {
       button.classList.add('disabled');
     }
 
@@ -103,23 +106,39 @@ function renderCategories() {
   });
 }
 
+function getMenuItemsForCategory(categoryId) {
+  switch (categoryId) {
+    case 'nigiri':
+      return nigiriItems;
+    case 'dessert':
+      return dessertItems;
+    default:
+      return [];
+  }
+}
+
+function findMenuItemById(itemId) {
+  return nigiriItems.find((item) => item.id === itemId) || dessertItems.find((item) => item.id === itemId);
+}
+
 function renderMenu() {
   menuGrid.innerHTML = '';
-  if (state.activeCategory !== 'nigiri') {
+  if (state.activeCategory !== 'nigiri' && state.activeCategory !== 'dessert') {
     menuPanel.classList.remove('active-nigiri');
-    const message = document.createElement('p');
-    message.className = 'hint';
-    message.textContent = '握りを押すとお寿司が表示されます。';
-    menuGrid.appendChild(message);
+    const placeholder = document.createElement('div');
+    placeholder.className = 'empty-state';
+    placeholder.textContent = '取り扱いなし';
+    menuGrid.appendChild(placeholder);
     prevPageButton.disabled = true;
     nextPageButton.disabled = true;
     return;
   }
 
   menuPanel.classList.add('active-nigiri');
+  const items = getMenuItemsForCategory(state.activeCategory);
   const start = state.page * ITEMS_PER_PAGE;
-  const pageItems = nigiriItems.slice(start, start + ITEMS_PER_PAGE);
-  const pageCount = Math.ceil(nigiriItems.length / ITEMS_PER_PAGE);
+  const pageItems = items.slice(start, start + ITEMS_PER_PAGE);
+  const pageCount = Math.ceil(items.length / ITEMS_PER_PAGE);
 
   pageItems.forEach((item) => {
     const template = document.getElementById('menuItemTemplate');
@@ -172,7 +191,7 @@ function renderMenu() {
 function renderCart() {
   cartItems.innerHTML = '<p class="hint">注文内容は合計金額のみ表示されます。</p>';
   const total = state.cart.reduce((sum, entry) => {
-    const item = nigiriItems.find((entryItem) => entryItem.id === entry.itemId);
+    const item = findMenuItemById(entry.itemId);
     return sum + (item ? item.price * entry.qty : 0);
   }, 0);
 
@@ -199,7 +218,7 @@ function openModal(item) {
   modalPrice.textContent = formatYen(item.price);
   modalQtyDisplay.textContent = state.selectedQuantity;
   modalImage.style.background = `url('${item.image}') center/contain no-repeat`;
-  modalImage.style.backgroundSize = 'cover';
+  modalImage.style.backgroundSize = 'contain';
   modalImage.style.backgroundPosition = 'center center';
   modalBody.classList.remove('checkout-mode');
   modalCheckoutContent.classList.add('hidden');
@@ -207,6 +226,32 @@ function openModal(item) {
   modalImage.classList.remove('hidden');
   modalOrderButton.textContent = '注文';
   modalCancelButton.textContent = '取り消し';
+  // move price element next to quantity controls for item modal
+  try {
+    const qtyGroupEl = document.getElementById('quantityGroup');
+    const modalInfoEl = modalDetails.querySelector('.modal-info');
+    // create or reuse a wrapper that stacks price above quantity controls
+    let qtyWrapper = modalDetails.querySelector('.qty-column');
+    if (!qtyWrapper) {
+      qtyWrapper = document.createElement('div');
+      qtyWrapper.className = 'qty-column';
+      // insert after modalInfo
+      if (modalInfoEl && modalInfoEl.nextSibling) {
+        modalDetails.insertBefore(qtyWrapper, modalInfoEl.nextSibling);
+      } else {
+        modalDetails.appendChild(qtyWrapper);
+      }
+    }
+    if (qtyWrapper && modalPrice && modalPrice.parentElement !== qtyWrapper) {
+      qtyWrapper.appendChild(modalPrice);
+    }
+    if (qtyGroupEl && qtyGroupEl.parentElement !== qtyWrapper) {
+      qtyWrapper.appendChild(qtyGroupEl);
+    }
+  } catch (e) {
+    // ignore
+  }
+
   modalOverlay.classList.remove('hidden');
 }
 
@@ -223,12 +268,45 @@ function openCheckoutModal() {
   modalImage.classList.add('hidden');
   modalOrderButton.textContent = 'お会計する';
   modalCancelButton.textContent = 'キャンセル';
+  // restore price element into modal-info and move quantityGroup back
+  try {
+    const modalInfoEl = modalDetails.querySelector('.modal-info');
+    const qtyGroupEl = document.getElementById('quantityGroup');
+    const qtyWrapper = modalDetails.querySelector('.qty-column');
+    if (modalInfoEl && modalPrice && modalPrice.parentElement !== modalInfoEl) {
+      modalInfoEl.appendChild(modalPrice);
+    }
+    if (qtyWrapper && qtyGroupEl && qtyGroupEl.parentElement === qtyWrapper) {
+      modalDetails.appendChild(qtyGroupEl);
+    }
+    if (qtyWrapper && qtyWrapper.parentElement) {
+      qtyWrapper.remove();
+    }
+  } catch (e) {}
+
   modalOverlay.classList.remove('hidden');
 }
 
 function closeModal() {
   modalOverlay.classList.add('hidden');
   state.selectedItem = null;
+  // move price back to modal-info and restore quantityGroup
+  try {
+    const modalInfoEl = modalDetails.querySelector('.modal-info');
+    const qtyGroupEl = document.getElementById('quantityGroup');
+    const qtyWrapper = modalDetails.querySelector('.qty-column');
+    if (modalInfoEl && modalPrice && modalPrice.parentElement !== modalInfoEl) {
+      modalInfoEl.appendChild(modalPrice);
+    }
+    if (qtyWrapper && qtyGroupEl && qtyGroupEl.parentElement === qtyWrapper) {
+      modalDetails.appendChild(qtyGroupEl);
+    }
+    if (qtyWrapper && qtyWrapper.parentElement) {
+      qtyWrapper.remove();
+    }
+  } catch (e) {
+    // ignore
+  }
 }
 
 function updateModalQuantity(delta) {
@@ -289,14 +367,14 @@ function placeOrder() {
 
   const summary = state.cart
     .map((entry) => {
-      const item = nigiriItems.find((entryItem) => entryItem.id === entry.itemId);
+      const item = findMenuItemById(entry.itemId);
       return item ? `${item.name} x${entry.qty}` : '';
     })
     .filter(Boolean)
     .join(', ');
 
   const total = state.cart.reduce((sum, entry) => {
-    const item = nigiriItems.find((entryItem) => entryItem.id === entry.itemId);
+    const item = findMenuItemById(entry.itemId);
     return sum + (item ? item.price * entry.qty : 0);
   }, 0);
 
@@ -305,7 +383,8 @@ function placeOrder() {
 }
 
 function handlePagination(direction) {
-  const pageCount = Math.ceil(nigiriItems.length / ITEMS_PER_PAGE);
+  const items = getMenuItemsForCategory(state.activeCategory);
+  const pageCount = Math.max(1, Math.ceil(items.length / ITEMS_PER_PAGE));
   state.page = Math.min(Math.max(0, state.page + direction), pageCount - 1);
   renderMenu();
 }
