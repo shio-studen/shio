@@ -31,11 +31,10 @@ button {
 }
 
 .app-shell {
-   width: min(1400px, calc(100vw - 40px));
-   height: min(1050px, calc(100vh - 40px));
-   max-width: 1400px;
-   max-height: 1050px;
-  margin: auto;
+   width: min(1260px, calc(100vw - 40px));
+   height: min(945px, calc(100vh - 40px));
+   max-width: 1260px;
+   max-height: 945px;
   padding: 12px 16px 24px;
   overflow: hidden;
   display: flex;
