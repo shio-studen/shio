@@ -195,6 +195,24 @@ button {
   padding-bottom: 48px; /* space above pagination-row so vertical leftover appears there */
 }
 
+.menu-grid .empty-state {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  min-height: 560px;
+  grid-column: 1 / -1;
+  padding-top: calc(16% + 100px);
+  background: transparent;
+  color: #6b7280;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.menu-grid {
+  min-height: 560px;
+}
+
 .menu-panel.active-nigiri .menu-card {
   background: transparent;
 }
@@ -395,16 +413,22 @@ button {
 
 .modal-body {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 20px;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
   padding: 28px;
   flex: 1 1 auto;
+  align-items: center;
 }
 
 .modal-details {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  padding-left: 150px;
+  padding-right: 20px;
+  width: 100%;
 }
 
 .modal-info h3,
@@ -412,7 +436,10 @@ button {
   margin: 0;
   font-size: 1.7rem;
   color: #111827;
-  text-align: center;
+}
+
+.modal-info h3 {
+  text-align: left;
 }
 
 .modal-info p,
@@ -420,6 +447,10 @@ button {
   margin: 14px 0 0;
   color: #4b5563;
   line-height: 1.6;
+}
+
+.modal-info p {
+  text-align: left;
 }
 
 .modal-checkout-content {
@@ -466,8 +497,8 @@ button {
 .quantity-group {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 28px;
+  gap: 10px;
+  margin-top: 56px;
 }
 
 .thank-overlay {
@@ -496,30 +527,66 @@ button {
 }
 
 .quantity-btn {
-  width: 54px;
-  height: 54px;
-  border-radius: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   border: 1px solid #d1d5db;
   background: #f8fafc;
   color: #111827;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   cursor: pointer;
 }
 
 .quantity-display {
-  min-width: 62px;
+  min-width: 52px;
   text-align: center;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #111827;
 }
 
+.quantity-group .modal-price {
+  display: none;
+}
+
+.modal-price {
+  margin-top: 0; /* default zero, modal-info will add spacing if needed */
+}
+
+.modal-info .modal-price {
+  margin-top: 24px;
+}
+
 .modal-image {
-  border-radius: 24px;
-  background: linear-gradient(135deg, #e2e8f0 0%, #f8fafc 100%);
-  border: 1px solid #d1d5db;
-  min-height: 100%;
+  border-radius: 12px;
+  background: transparent;
+  border: none;
+  width: 320px;
+  height: 320px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  min-height: 0;
+}
+
+@media (max-width: 820px) {
+  .modal-image {
+    width: 220px;
+    height: 220px;
+  }
+}
+
+.qty-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+}
+
+/* Hide price when it's placed inside the qty-column (個数変更画面) */
+.qty-column .modal-price {
+  display: none !important;
 }
 
 .modal-actions {
