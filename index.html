@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>もろ寿司</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <main class="main-layout">
+      <section class="menu-panel">
+        <div class="category-row" id="categoryTabs"></div>
+
+        <div class="menu-frame">
+          <div class="menu-grid" id="menuGrid"></div>
+
+          <div class="pagination-row">
+            <button class="nav-btn" id="prevPage" disabled>◁前へ</button>
+            <button class="nav-btn next-btn" id="nextPage" disabled>▷次へ</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="order-panel" id="cartPanel">
+        <div class="panel-header">
+          <h2>注文の状況</h2>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-footer">
+          <div class="total-row">
+            <span>合計</span>
+            <strong id="cartTotal">¥0</strong>
+          </div>
+          <button class="checkout-btn" id="placeOrder">お会計する</button>
+        </div>
+      </aside>
+    </main>
+
+    <div class="bottom-actions">
+      <div class="action-left-group">
+        <button class="bottom-action-button call-button" type="button">🛎 店員呼び出し</button>
+        <button class="bottom-action-button" type="button">🌐 言語選択</button>
+      </div>
+      <button class="bottom-action-button info-button" type="button">
+        <span class="info-icon">?</span>
+        <span class="info-label">操作説明</span>
+      </button>
+    </div>
+  </div>
+
+  <template id="menuItemTemplate">
+    <article class="menu-card">
+      <div class="menu-card-image">
+        <img class="menu-img" alt="" />
+      </div>
+      <div class="menu-card-body">
+        <div>
+          <h3 class="menu-title"></h3>
+          <p class="menu-desc"></p>
+        </div>
+        <div class="menu-card-action">
+          <span class="price"></span>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="cartItemTemplate">
+    <div class="cart-item">
+      <div>
+        <strong class="cart-item-name"></strong>
+        <span class="cart-item-quantity"></span>
+      </div>
+    </div>
+  </template>
+
+  <div class="modal-overlay hidden" id="itemModal">
+    <div class="modal-card">
+      <div class="modal-body" id="modalBody">
+        <div class="modal-details" id="modalDetails">
+          <div class="modal-info">
+            <h3 id="modalTitle">商品名</h3>
+            <p id="modalDesc">商品説明</p>
+            <div class="modal-price" id="modalPrice">¥0</div>
+          </div>
+          <div class="quantity-group" id="quantityGroup">
+            <button class="quantity-btn" type="button" id="modalQtyDecrease">−</button>
+            <span class="quantity-display" id="modalQtyDisplay">1</span>
+            <button class="quantity-btn" type="button" id="modalQtyIncrease">＋</button>
+          </div>
+        </div>
+        <div class="modal-checkout-content hidden" id="modalCheckoutContent">
+          <h3>お会計</h3>
+          <p class="checkout-line">ご注文を終えて、お会計いたします。</p>
+          <p class="checkout-line">よろしいですか？</p>
+          <p class="checkout-note">お会計以降はご注文はできません。</p>
+        </div>
+        <div class="modal-image" id="modalImage"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="cancel-btn" type="button" id="modalCancel">取り消し</button>
+        <button class="confirm-btn" type="button" id="modalOrder">注文</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="thank-overlay hidden" id="thankOverlay">
+    <div class="thank-card">
+      <p>ありがとうございました</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
