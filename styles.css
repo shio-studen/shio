@@ -623,7 +623,9 @@ button {
   align-items: center;
   justify-items: center;
   text-align: center;
-  padding: 32px 28px 36px;
+  /* center grid content and use symmetric padding so content centers visually */
+  place-content: center;
+  padding: 28px;
 }
 
 .quantity-group {
@@ -744,6 +746,9 @@ button {
 /* center the grid rows when quantity mode is active */
 .modal-body.qty-mode {
   align-items: center;
+  /* center grid content and use symmetric padding for visual centering */
+  place-content: center;
+  padding: 28px;
 }
 
 /* Hide price when it's placed inside the qty-column (個数変更画面) */
