@@ -540,12 +540,13 @@ button {
 
 .modal-body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 18px;
+  grid-template-columns: minmax(0, 1.4fr) auto;
+  gap: 20px;
   padding: 28px;
   flex: 1 1 auto;
   align-items: start;
   min-height: 0;
+  justify-items: stretch;
  }
  
  .modal-details {
@@ -623,9 +624,39 @@ button {
   align-items: center;
   justify-items: center;
   text-align: center;
-  /* center grid content and use symmetric padding so content centers visually */
   place-content: center;
   padding: 28px;
+}
+
+@media (max-width: 1024px) and (orientation: landscape) {
+  .modal-card {
+    width: min(94vw, 820px);
+    max-width: 820px;
+    min-height: auto;
+  }
+  .modal-body {
+    grid-template-columns: minmax(0, 1.2fr) auto;
+    gap: 22px;
+    align-items: center;
+    justify-items: stretch;
+  }
+  .modal-body.qty-mode {
+    grid-template-columns: minmax(0, 1.2fr) auto;
+    place-content: center;
+  }
+  .modal-body.checkout-mode {
+    padding: 24px;
+    place-content: center;
+  }
+  .modal-checkout-content {
+    max-width: 100%;
+    width: 100%;
+    padding: 0 12px;
+  }
+  .modal-image {
+    width: 280px;
+    height: 280px;
+  }
 }
 
 .quantity-group {
@@ -707,13 +738,20 @@ button {
   border-radius: 12px;
   background: transparent;
   border: none;
-  width: 180px;
-  height: 180px;
+  width: 260px;
+  height: 260px;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
   min-height: 0;
   align-self: start;
+}
+
+@media (max-width: 960px) {
+  .modal-image {
+    width: 240px;
+    height: 240px;
+  }
 }
 
 @media (max-width: 820px) {
@@ -736,6 +774,13 @@ button {
 }
 
 /* when in qty-mode, keep left details centered and right image vertically centered */
+.modal-body.qty-mode {
+  align-items: center;
+  place-content: center;
+  padding: 28px;
+  grid-template-columns: minmax(0, 1.3fr) auto;
+  justify-items: stretch;
+}
 .modal-body.qty-mode .modal-details {
   justify-content: center;
 }
