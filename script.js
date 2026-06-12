@@ -248,6 +248,10 @@ function openModal(item) {
     if (qtyGroupEl && qtyGroupEl.parentElement !== qtyWrapper) {
       qtyWrapper.appendChild(qtyGroupEl);
     }
+    // mark modal as quantity-mode so CSS can center left/right columns
+    if (modalBody && !modalBody.classList.contains('qty-mode')) {
+      modalBody.classList.add('qty-mode');
+    }
   } catch (e) {
     // ignore
   }
@@ -282,6 +286,10 @@ function openCheckoutModal() {
     if (qtyWrapper && qtyWrapper.parentElement) {
       qtyWrapper.remove();
     }
+    // ensure qty-mode class removed when switching to checkout
+    if (modalBody && modalBody.classList.contains('qty-mode')) {
+      modalBody.classList.remove('qty-mode');
+    }
   } catch (e) {}
 
   modalOverlay.classList.remove('hidden');
@@ -303,6 +311,9 @@ function closeModal() {
     }
     if (qtyWrapper && qtyWrapper.parentElement) {
       qtyWrapper.remove();
+    }
+    if (modalBody && modalBody.classList.contains('qty-mode')) {
+      modalBody.classList.remove('qty-mode');
     }
   } catch (e) {
     // ignore
