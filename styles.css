@@ -730,7 +730,7 @@ button {
   margin-top: 0; /* default zero, modal-info will add spacing if needed */
 }
 
-..modal-info .modal-price {
+.modal-info .modal-price {
   margin-top: 24px;
 }
 
@@ -758,6 +758,46 @@ button {
   .modal-image {
     width: 220px;
     height: 220px;
+  }
+}
+
+/* Force centered modal layout for landscape devices (iPad Safari) */
+@media (orientation: landscape) {
+  .modal-overlay {
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-card {
+    max-height: 86vh;
+    overflow: hidden;
+  }
+  .modal-body {
+    align-items: center;
+    place-content: center;
+    grid-template-columns: minmax(0, 1.3fr) auto;
+    gap: 20px;
+  }
+  .modal-body.qty-mode {
+    grid-template-columns: minmax(0, 1.3fr) auto;
+    align-items: center;
+    place-content: center;
+  }
+  .modal-body.qty-mode .modal-details {
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    padding-left: 6px;
+  }
+  .modal-body.qty-mode .modal-image {
+    align-self: center;
+    justify-self: center;
+  }
+  .modal-body.checkout-mode {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 }
 
