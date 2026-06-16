@@ -134,7 +134,7 @@ button {
     border-radius: 0 0 0 0;
   }
   .menu-card-image {
-    height: 92%;
+    height: 96%;
   }
   .menu-card-image .menu-img {
     width: 100%;
@@ -619,13 +619,13 @@ button {
 }
 
 .modal-body.checkout-mode {
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  justify-items: center;
   text-align: center;
-  place-content: center;
   padding: 28px;
+  min-height: 0;
 }
 
 @media (max-width: 1024px) and (orientation: landscape) {
@@ -730,7 +730,7 @@ button {
   margin-top: 0; /* default zero, modal-info will add spacing if needed */
 }
 
-.modal-info .modal-price {
+..modal-info .modal-price {
   margin-top: 24px;
 }
 
@@ -782,10 +782,16 @@ button {
   justify-items: stretch;
 }
 .modal-body.qty-mode .modal-details {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  gap: 10px;
 }
 .modal-body.qty-mode .modal-image {
   align-self: center;
+  justify-self: center;
 }
 
 /* center the grid rows when quantity mode is active */
