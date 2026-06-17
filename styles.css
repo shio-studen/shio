@@ -790,6 +790,7 @@ button {
   .modal-body.qty-mode .modal-image {
     align-self: center;
     justify-self: center;
+    margin-top: -200px; 
   }
   .modal-body.qty-mode .modal-details {
     order: 0;
@@ -800,6 +801,7 @@ button {
     height: 100%;
     padding-left: 6px;
     gap: 10px;
+    margin-top: -200px; 
   }
   .modal-body.checkout-mode {
     display: flex;
