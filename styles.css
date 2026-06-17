@@ -815,18 +815,21 @@ button {
 
 /* when in qty-mode, keep left details centered and right image vertically centered */
 .modal-body.qty-mode {
+  display: grid;
   align-items: center;
+  justify-content: center;
   place-content: center;
   padding: 28px;
   grid-template-columns: minmax(0, 1.3fr) auto;
   justify-items: stretch;
+  min-height: 0;
 }
 .modal-body.qty-mode .modal-details {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  height: 100%;
+  margin: auto 0;
   gap: 10px;
 }
 .modal-body.qty-mode .modal-image {
@@ -837,6 +840,7 @@ button {
 /* center the grid rows when quantity mode is active */
 .modal-body.qty-mode {
   align-items: center;
+  justify-content: center;
   /* center grid content and use symmetric padding for visual centering */
   place-content: center;
   padding: 28px;
