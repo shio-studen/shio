@@ -22,7 +22,7 @@ const nigiriItems = [
 ];
 
 const dessertItems = [
-  { id: 'millefeuille', name: 'ミルフィーユ', description: 'ふわふわな生地とクリームの贅沢デザート', price: 121, image: '写真/ミルフィーユ.jpg' },
+  { id: 'millefeuille', name: 'ミルクレープ', description: 'ふわふわな生地とクリームの贅沢デザート', price: 121, image: '写真/ミルフィーユ.jpg' },
 ];
 
 const state = {
