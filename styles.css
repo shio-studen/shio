@@ -772,25 +772,34 @@ button {
     overflow: hidden;
   }
   .modal-body {
+    display: grid;
     align-items: center;
+    justify-content: center;
     place-content: center;
-    grid-template-columns: minmax(0, 1.3fr) auto;
+    grid-template-columns: auto minmax(0, 1.3fr);
     gap: 20px;
+    padding: 28px;
   }
   .modal-body.qty-mode {
+    display: grid;
     grid-template-columns: minmax(0, 1.3fr) auto;
     align-items: center;
     place-content: center;
-  }
-  .modal-body.qty-mode .modal-details {
-    justify-content: center;
-    align-items: flex-start;
-    height: 100%;
-    padding-left: 6px;
+    padding: 28px;
   }
   .modal-body.qty-mode .modal-image {
     align-self: center;
     justify-self: center;
+  }
+  .modal-body.qty-mode .modal-details {
+    order: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    padding-left: 6px;
+    gap: 10px;
   }
   .modal-body.checkout-mode {
     display: flex;
