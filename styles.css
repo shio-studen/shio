@@ -790,7 +790,8 @@ button {
   .modal-body.qty-mode .modal-image {
     align-self: center;
     justify-self: center;
-    margin-top: -200px; 
+    margin-top: -250px; 
+    margin-left: -100px;
   }
   .modal-body.qty-mode .modal-details {
     order: 0;
